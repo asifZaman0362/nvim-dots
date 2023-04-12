@@ -45,12 +45,35 @@ utils.map('n', "<Leader>S", ":split<CR>", { noremap = true });
 utils.map('n', "<Leader>R", ":CargoReload<CR>", { noremap = true });
 utils.map('n', "<Leader>ga", ":!git add -A<CR><CR>", { noremap = true });
 
--- vim.keymap.set(n, '<leader>dk', function() require('dap').continue() end)
--- vim.keymap.set(n, '<leader>dl', function() require('dap').run_last() end)
--- vim.keymap.set(n, '<leader>b', function() require('dap').toggle_breakpoint() end)
+-- dap configuration
+vim.keymap.set('n', '<F5>', function() require('dap').continue() end)
+vim.keymap.set('n', '<F10>', function() require('dap').step_over() end)
+vim.keymap.set('n', '<F11>', function() require('dap').step_into() end)
+vim.keymap.set('n', '<F12>', function() require('dap').step_out() end)
+vim.keymap.set('n', '<Leader>b', function() require('dap').toggle_breakpoint() end)
+vim.keymap.set('n', '<Leader>B', function() require('dap').set_breakpoint() end)
+vim.keymap.set('n', '<Leader>lp',
+    function() require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end)
+vim.keymap.set('n', '<Leader>dr', function() require('dap').repl.open() end)
+vim.keymap.set('n', '<Leader>dl', function() require('dap').run_last() end)
+vim.keymap.set({ 'n', 'v' }, '<Leader>dh', function()
+    require('dap.ui.widgets').hover()
+end)
+vim.keymap.set({ 'n', 'v' }, '<Leader>dp', function()
+    require('dap.ui.widgets').preview()
+end)
+vim.keymap.set('n', '<Leader>df', function()
+    local widgets = require('dap.ui.widgets')
+    widgets.centered_float(widgets.frames)
+end)
+vim.keymap.set('n', '<Leader>ds', function()
+    local widgets = require('dap.ui.widgets')
+    widgets.centered_float(widgets.scopes)
+end)
+-- dap
 
 -- lsp configuration
-vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.formatting_sync()]]
+vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
 -- Rust
 
 
@@ -67,6 +90,12 @@ sign({ name = 'DiagnosticSignError', text = '' })
 sign({ name = 'DiagnosticSignWarn', text = '' })
 sign({ name = 'DiagnosticSignHint', text = '' })
 sign({ name = 'DiagnosticSignInfo', text = '' })
+
+vim.cmd [[autocmd FileType javascript setlocal shiftwidth=2 softtabstop=2 expandtab]]
+vim.cmd [[autocmd FileType javascriptreact setlocal shiftwidth=2 softtabstop=2 expandtab]]
+vim.cmd [[autocmd FileType html setlocal shiftwidth=2 softtabstop=2 expandtab]]
+vim.cmd [[autocmd FileType typescript setlocal shiftwidth=2 softtabstop=2 expandtab]]
+vim.cmd [[autocmd FileType typescriptreact setlocal shiftwidth=2 softtabstop=2 expandtab]]
 
 vim.diagnostic.config({
     virtual_text = false,
@@ -142,5 +171,5 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end,
 })
 vim.cmd([[highlight! link LspInlayHint Comment]])
-vim.cmd([[colorscheme gruvbox]])
+vim.cmd([[colorscheme tokyonight-night]])
 vim.diagnostic.config({ virtual_text = true })
