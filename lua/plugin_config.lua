@@ -209,6 +209,11 @@ cmp.setup({
         end,
     },
 })
+-- CodeLLDB rust setup
+local extension_path = vim.env.HOME .. '/.vscode/extensions/vadimcn.vscode-lldb-1.9.0/'
+local codelldb_path = extension_path .. 'adapter/codelldb'
+local liblldb_path = extension_path .. 'lldb/lib/liblldb.dylib'
+
 local rt = require("rust-tools")
 rt.setup({
     server = {
@@ -219,17 +224,27 @@ rt.setup({
             vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
         end,
     },
+    dap = {
+        adapter = require('rust-tools.dap').get_codelldb_adapter(codelldb_path, liblldb_path)
+    }
 })
 local dap = require('dap')
-dap.adapters.cppdbg = {
-    id = 'cppdbg',
-    type = 'executable',
-    command = '/Users/asifzaman/bin/cpptools/extension/debugAdapters/bin/OpenDebugAD7',
+local codelldb_port = '13000'
+dap.adapters.codelldb = {
+    type = 'server',
+    port = codelldb_port,
+    executable = {
+        command = codelldb_path,
+        args = { "--port", codelldb_port },
+
+        -- On windows you may have to uncomment this:
+        -- detached = false,
+    }
 }
 dap.configurations.cpp = {
     {
         name = "Launch file",
-        type = "cppdbg",
+        type = "codelldb",
         request = "launch",
         program = function()
             return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
@@ -265,4 +280,5 @@ dap.configurations.cpp = {
         },
 
     },
+    require("dapui").setup()
 }

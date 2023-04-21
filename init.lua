@@ -46,6 +46,7 @@ utils.map('n', "<Leader>R", ":CargoReload<CR>", { noremap = true });
 utils.map('n', "<Leader>ga", ":!git add -A<CR><CR>", { noremap = true });
 
 -- dap configuration
+utils.map('n', "<Leader>dd", ":lua require'dapui'.toggle()<CR>", { noremap = true });
 vim.keymap.set('n', '<F5>', function() require('dap').continue() end)
 vim.keymap.set('n', '<F10>', function() require('dap').step_over() end)
 vim.keymap.set('n', '<F11>', function() require('dap').step_into() end)
