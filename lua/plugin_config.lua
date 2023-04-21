@@ -14,14 +14,30 @@ require("gruvbox").setup({
     transparent_mode = false,
     background = "light",
 })
-
+require("inlay-hints").setup()
+local ih = require("inlay-hints")
 require("nvim-tree").setup()
 require("mason").setup {}
 require "lspconfig".rust_analyzer.setup {}
-require "lspconfig".clangd.setup {}
-require "lspconfig".pyright.setup {}
-require "lspconfig".lua_ls.setup {}
+require "lspconfig".clangd.setup({
+    on_attach = function(c, b)
+        ih.on_attach(c, b)
+    end
+})
+require "lspconfig".pyright.setup({
+    on_attach = function(c, b)
+        ih.on_attach(c, b)
+    end
+})
+require "lspconfig".lua_ls.setup({
+    on_attach = function(c, b)
+        ih.on_attach(c, b)
+    end
+})
 require "lspconfig".tsserver.setup({
+    on_attach = function(c, b)
+        ih.on_attach(c, b)
+    end,
     settings = {
         typescript = {
             inlayHints = {
@@ -58,6 +74,7 @@ local async = event == "BufWritePost"
 
 null_ls.setup({
     on_attach = function(client, bufnr)
+        ih.on_attach(client, bufnr)
         if client.supports_method("textDocument/formatting") then
             vim.keymap.set("n", "<Leader>f", function()
                 vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
@@ -123,15 +140,15 @@ eslint.setup({
     },
 })
 
-require("lsp-inlayhints").setup()
+--require("lsp-inlayhints").setup()
 require('lspconfig')['pyright'].setup {
     on_attach = on_attach,
     flags = lsp_flags,
 }
-require('lspconfig')['tsserver'].setup {
-    on_attach = on_attach,
-    flags = lsp_flags,
-}
+--require('lspconfig')['tsserver'].setup {
+--on_attach = on_attach,
+--flags = lsp_flags,
+--}--
 require('lspconfig')['rust_analyzer'].setup {
     on_attach = on_attach,
     flags = lsp_flags,

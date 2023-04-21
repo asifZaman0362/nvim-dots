@@ -172,4 +172,5 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 vim.cmd([[highlight! link LspInlayHint Comment]])
 vim.cmd([[colorscheme tokyonight-night]])
+vim.opt.foldmethod = "syntax"
 vim.diagnostic.config({ virtual_text = true })

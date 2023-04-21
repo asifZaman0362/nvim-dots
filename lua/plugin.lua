@@ -33,7 +33,8 @@ return require("packer").startup(function(use)
     use "neovim/nvim-lspconfig"
     use 'jose-elias-alvarez/null-ls.nvim'
     use 'MunifTanjim/eslint.nvim'
-    use "lvimuser/lsp-inlayhints.nvim"
+    --use "lvimuser/lsp-inlayhints.nvim"
+    use('simrat39/inlay-hints.nvim')
     use "simrat39/rust-tools.nvim"
     use 'hrsh7th/nvim-cmp'
     use 'hrsh7th/cmp-nvim-lsp'
