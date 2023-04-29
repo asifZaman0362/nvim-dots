@@ -55,4 +55,7 @@ return require("packer").startup(function(use)
     }
     use 'mfussenegger/nvim-dap'
     use { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } }
+    use 'nvim-treesitter/nvim-treesitter-context'
+    use "lukas-reineke/indent-blankline.nvim"
+    use { 'glepnir/lspsaga.nvim' }
 end)

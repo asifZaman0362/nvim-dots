@@ -14,6 +14,9 @@ require("gruvbox").setup({
     transparent_mode = false,
     background = "light",
 })
+require("tokyonight").setup({
+    transparent = true
+})
 require("inlay-hints").setup()
 local ih = require("inlay-hints")
 require("nvim-tree").setup()
@@ -247,7 +250,7 @@ dap.configurations.cpp = {
         type = "codelldb",
         request = "launch",
         program = function()
-            return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+            return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/build/', 'file')
         end,
         cwd = '${workspaceFolder}',
         stopAtEntry = true,
@@ -260,25 +263,93 @@ dap.configurations.cpp = {
         },
 
     },
-    {
-        name = 'Attach to gdbserver :1234',
-        type = 'cppdbg',
-        request = 'launch',
-        MIMode = 'gdb',
-        miDebuggerServerAddress = 'localhost:1234',
-        miDebuggerPath = '/usr/bin/gdb',
-        cwd = '${workspaceFolder}',
-        program = function()
-            return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-        end,
-        setupCommands = {
-            {
-                text = '-enable-pretty-printing',
-                description = 'enable pretty printing',
-                ignoreFailures = false
+    require("dapui").setup()
+}
+
+local lspconfig = require('lspconfig')
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+lspconfig.emmet_ls.setup({
+    -- on_attach = on_attach,
+    capabilities = capabilities,
+    filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "svelte", "pug",
+        "typescriptreact", "vue" },
+    init_options = {
+        html = {
+            options = {
+                -- For possible options, see: https://github.com/emmetio/emmet/blob/master/src/config.ts#L79-L267
+                ["bem.enabled"] = true,
             },
         },
+    }
+})
+require 'treesitter-context'.setup {
+    enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
+    max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
+    min_window_height = 0, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
+    line_numbers = true,
+    multiline_threshold = 20, -- Maximum number of lines to collapse for a single context line
+    trim_scope = 'outer', -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
+    mode = 'cursor', -- Line used to calculate context. Choices: 'cursor', 'topline'
+    -- Separator between context and content. Should be a single character string, like '-'.
+    -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
+    separator = nil,
+    zindex = 20, -- The Z-index of the context window
+}
+require('vgit').setup()
+require("indent_blankline").setup {
+    -- for example, context is off by default, use this to turn it on
+    show_current_context = true,
+    show_current_context_start = true,
+}
 
+local lspsaga = require 'lspsaga'
+lspsaga.setup { -- defaults ...
+    debug = false,
+    use_saga_diagnostic_sign = true,
+    -- diagnostic sign
+    error_sign = "",
+    warn_sign = "",
+    hint_sign = "",
+    infor_sign = "",
+    diagnostic_header_icon = "   ",
+    -- code action title icon
+    code_action_icon = " ",
+    code_action_prompt = {
+        enable = true,
+        sign = true,
+        sign_priority = 40,
+        virtual_text = true,
     },
-    require("dapui").setup()
+    finder_definition_icon = "  ",
+    finder_reference_icon = "  ",
+    max_preview_lines = 10,
+    finder_action_keys = {
+        open = "o",
+        vsplit = "s",
+        split = "i",
+        quit = "q",
+        scroll_down = "<C-f>",
+        scroll_up = "<C-b>",
+    },
+    code_action_keys = {
+        quit = "q",
+        exec = "<CR>",
+    },
+    rename_action_keys = {
+        quit = "<C-c>",
+        exec = "<CR>",
+    },
+    definition_preview_icon = "  ",
+    border_style = "single",
+    rename_prompt_prefix = "➤",
+    rename_output_qflist = {
+        enable = false,
+        auto_open_qflist = false,
+    },
+    server_filetype_map = {},
+    diagnostic_prefix_format = "%d. ",
+    diagnostic_message_format = "%m %c",
+    highlight_prefix = false,
 }
