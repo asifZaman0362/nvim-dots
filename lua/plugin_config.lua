@@ -160,7 +160,7 @@ require('lspconfig')['rust_analyzer'].setup {
         ["rust-analyzer"] = {}
     }
 }
-require('lualine').setup()
+require('lualineconfig')
 local cmp = require 'cmp'
 cmp.setup({
     -- Enable LSP snippets
@@ -291,7 +291,7 @@ require 'treesitter-context'.setup {
     line_numbers = true,
     multiline_threshold = 20, -- Maximum number of lines to collapse for a single context line
     trim_scope = 'outer', -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
-    mode = 'cursor', -- Line used to calculate context. Choices: 'cursor', 'topline'
+    mode = 'topline', -- Line used to calculate context. Choices: 'cursor', 'topline'
     -- Separator between context and content. Should be a single character string, like '-'.
     -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
     separator = nil,
@@ -353,3 +353,13 @@ lspsaga.setup { -- defaults ...
     diagnostic_message_format = "%m %c",
     highlight_prefix = false,
 }
+require("transparent").setup({
+    groups = { -- table: default groups
+        'Normal', 'NormalNC', 'Comment', 'Constant', 'Special', 'Identifier',
+        'Statement', 'PreProc', 'Type', 'Underlined', 'Todo', 'String', 'Function',
+        'Conditional', 'Repeat', 'Operator', 'Structure', 'LineNr', 'NonText',
+        'SignColumn', 'CursorLineNr', 'EndOfBuffer',
+    },
+    extra_groups = {}, -- table: additional groups that should be cleared
+    exclude_groups = {}, -- table: groups you don't want to clear
+})
