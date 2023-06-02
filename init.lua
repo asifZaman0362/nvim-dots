@@ -34,8 +34,8 @@ vim.o.background = "dark"
 -- Key bindings
 utils.map('n', "<Leader>t", ":NvimTreeToggle <CR>", { noremap = true })
 utils.map('n', "<Leader>h", ":noh<CR>", { noremap = true })
-utils.map('n', "<Leader>ff", ":Telescope git_files<CR>", { noremap = true })
-utils.map('n', "<Leader>fF", ":Telescope find_files<CR>", { noremap = true })
+utils.map('n', "<Leader>fF", ":Telescope git_files<CR>", { noremap = true })
+utils.map('n', "<Leader>ff", ":Telescope find_files<CR>", { noremap = true })
 utils.map('n', "<Leader>fg", ":Telescope live_grep<CR>", { noremap = true })
 utils.map('n', "<Leader>fb", ":Telescope buffers<CR>", { noremap = true })
 utils.map('n', "<Leader>fh", ":Telescope help_tags<CR>", { noremap = true })
