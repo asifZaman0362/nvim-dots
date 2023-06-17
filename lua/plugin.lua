@@ -59,4 +59,6 @@ return require("packer").startup(function(use)
     use "lukas-reineke/indent-blankline.nvim"
     use { 'glepnir/lspsaga.nvim' }
     use "xiyaowong/transparent.nvim"
+    use({ 'rose-pine/neovim', as = 'rose-pine' })
+    use 'LhKipp/nvim-nu'
 end)

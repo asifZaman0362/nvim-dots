@@ -273,7 +273,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end,
 })
 vim.cmd([[highlight! link LspInlayHint Comment]])
-vim.cmd([[colorscheme tokyonight-night]])
+vim.cmd([[colorscheme rose-pine-moon]])
 vim.cmd([[set nofoldenable]])
 vim.opt.foldmethod = "indent"
 vim.diagnostic.config({ virtual_text = true })
