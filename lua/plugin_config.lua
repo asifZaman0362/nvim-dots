@@ -111,7 +111,7 @@ null_ls.setup({
 local prettier = require("prettier")
 
 prettier.setup({
-    bin = 'prettierd', -- or `'prettierd'` (v0.23.3+)
+    bin = 'prettier_d_slim', -- or `'prettierd'` (v0.23.3+)
     filetypes = {
         "css",
         "graphql",
@@ -191,13 +191,13 @@ cmp.setup({
     },
     -- Installed sources:
     sources = {
-        { name = 'path' }, -- file paths
-        { name = 'nvim_lsp', keyword_length = 3 }, -- from language server
-        { name = 'nvim_lsp_signature_help' }, -- display function signatures with current parameter emphasized
-        { name = 'nvim_lua', keyword_length = 2 }, -- complete neovim's Lua runtime API such vim.lsp.*
-        { name = 'buffer', keyword_length = 2 }, -- source current buffer
-        { name = 'vsnip', keyword_length = 2 }, -- nvim-cmp source for vim-vsnip
-        { name = 'calc' }, -- source for math calculation
+        { name = 'path' },                         -- file paths
+        { name = 'nvim_lsp',               keyword_length = 3 }, -- from language server
+        { name = 'nvim_lsp_signature_help' },      -- display function signatures with current parameter emphasized
+        { name = 'nvim_lua',               keyword_length = 2 }, -- complete neovim's Lua runtime API such vim.lsp.*
+        { name = 'buffer',                 keyword_length = 2 }, -- source current buffer
+        { name = 'vsnip',                  keyword_length = 2 }, -- nvim-cmp source for vim-vsnip
+        { name = 'calc' },                         -- source for math calculation
     },
     window = {
         completion = cmp.config.window.bordered(),
@@ -289,13 +289,13 @@ lspconfig.emmet_ls.setup({
     }
 })
 require 'treesitter-context'.setup {
-    enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
-    max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
-    min_window_height = 0, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
+    enable = true,            -- Enable this plugin (Can be enabled/disabled later via commands)
+    max_lines = 0,            -- How many lines the window should span. Values <= 0 mean no limit.
+    min_window_height = 0,    -- Minimum editor window height to enable context. Values <= 0 mean no limit.
     line_numbers = true,
     multiline_threshold = 20, -- Maximum number of lines to collapse for a single context line
-    trim_scope = 'outer', -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
-    mode = 'topline', -- Line used to calculate context. Choices: 'cursor', 'topline'
+    trim_scope = 'outer',     -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
+    mode = 'topline',         -- Line used to calculate context. Choices: 'cursor', 'topline'
     -- Separator between context and content. Should be a single character string, like '-'.
     -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
     separator = nil,
@@ -364,6 +364,6 @@ require("transparent").setup({
         'Conditional', 'Repeat', 'Operator', 'Structure', 'LineNr', 'NonText',
         'SignColumn', 'CursorLineNr', 'EndOfBuffer',
     },
-    extra_groups = {}, -- table: additional groups that should be cleared
+    extra_groups = {},   -- table: additional groups that should be cleared
     exclude_groups = {}, -- table: groups you don't want to clear
 })

@@ -44,7 +44,7 @@ return require("packer").startup(function(use)
     use 'hrsh7th/cmp-path'
     use 'hrsh7th/cmp-buffer'
     use 'hrsh7th/vim-vsnip'
-    use 'MunifTanjim/prettier.nvim'
+    use 'asifZaman0362/prettier.nvim'
     use { 'nvim-telescope/telescope-fzf-native.nvim',
         run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
     use {
